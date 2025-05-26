@@ -15,6 +15,7 @@
 //一个程序随着main函数的开始而开始，一个程序随着main函数的结束而结束
 int main(int argc, const char *argv[])
 {
+    //()：是函数的标志
     //int：函数的返回值类型
     //main：函数名
     //括号中用于外部传参使用
