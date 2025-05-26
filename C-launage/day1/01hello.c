@@ -20,7 +20,7 @@ int main(int argc, const char *argv[])
     //main：函数名
     //括号中用于外部传参使用
     //argc：外部传参的个数
-    //argv：外部含参的数组
+    //argv：外部传参的数组
 
     return 0;
     //但凡是有返回值函数，必须加return语句，返回值的类型要与函数的类型保持一致
