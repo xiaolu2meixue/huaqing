@@ -6,6 +6,7 @@ int main(int argc, const char *argv[])
 {
 
     printf("hello \t world\n");
+    //()：是函数的标志
     //功能：向终端中输出字符串数据
     //里面是英文状态下的双引号
     //双引号内的内容可以是任意的，就是展现到终端上的内容
