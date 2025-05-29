@@ -20,7 +20,7 @@ int main(int argc, const char *argv[])
 	printf("请输入数字：");
 	scanf("%d",&NUM);
 	int x = huiwen_num(NUM);
-	if (x == 1) printf("%d 是回文数\n", NUM);
+	if (x) printf("%d 是回文数\n", NUM);
 	else printf("%d 不是回文数\n", NUM);
 	return 0;
 }
