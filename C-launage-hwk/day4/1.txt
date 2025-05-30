@@ -1,6 +1,6 @@
 5.i是无符号数，没有负数，所以无限循环
 6.D D
-7.1.gcc hello.c -m 目标文件名（或者：gcc hello.c）
+7.1.gcc -c hello.c -0 hello.o
   2.查询ps -ef中的叫sambd
   3.未申明uc，int uc;等等
   4.申明了aa但未使用

@@ -5,7 +5,7 @@ int output_perfect(int num)
 {
 	int n;
 	int sum = 0;
-	for (n=num - 1; n>0; n--)
+	for (n=num - 1; n > 0; n--)
 	{
 		if (num%n == 0) sum += n;
 	}
