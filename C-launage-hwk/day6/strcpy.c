@@ -10,12 +10,11 @@ void copy(char* buf, char* buffer)
 {
     int LEN = Str(buf);
     int j = 0;
-    for (int i = 0; i < LEN; i++)
-    {
+    for (int i = 0; i < LEN; i++) {
         buffer[j] = buf[i];
         j++;
-        }
     }
+}
 int main(int argc, const char *argv[])
 {
     char BUFFER1[100] = {};
