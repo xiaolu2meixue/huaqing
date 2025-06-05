@@ -20,7 +20,7 @@ int main()
                 strcpy(str[j + 1], temp);
             }
             memset(temp, 0, sizeof(temp));
-
+            //bzero(temp,sizeofz(temp))
         }
 
     }
