@@ -3,11 +3,12 @@
 int Arr(int* arr)
 {
 	int num;
+    //循环输入数组
 	for (int count = 0; ;count++)
 	{
 		printf("请输入：（输入-1结束输入）");
 		scanf("%d", &num);
-		if (num == -1) return count;
+		if (num == -1) return count; //输入-1结束输入
 		arr[count] = num;
 	}
     return 0;
