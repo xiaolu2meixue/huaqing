@@ -21,11 +21,7 @@ void select_sort(int* arr1, int len1)
         int *max = arr1;  // 初始化最大值指针
         
         // 在[arr, end]范围内查找最大值
-        for (int *p = arr1 + 1; p <= end; p++) {
-            if (*p > *max) {
-                max = p;
-            }
-        }
+        for (int *p = arr1 + 1; p <= end; p++) if (*p > *max) max = p;
         
         // 将最大值交换到末尾
         if (max != end) {
