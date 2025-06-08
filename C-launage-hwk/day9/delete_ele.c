@@ -7,7 +7,6 @@ typedef struct employee {
     int sex;
 }employee;
 
-
 int input_arr(employee* arr)
 {
     int max_count;
@@ -25,10 +24,11 @@ int input_arr(employee* arr)
 int is_post()
 {
     int post = -1;
-    printf("请输入需要删除第几个人：");
+    printf("请输入需要删除第几个元素：");
     scanf("%d", &post);
     return post == -1? 0: post; //返回值0为false
 }
+//删除数组元素
 int delete_ele(employee* arr,int rel_len, int post)
 {
     employee* index = &arr[post -1];
