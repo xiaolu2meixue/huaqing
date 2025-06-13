@@ -1,4 +1,4 @@
-#include "myhead.h"
+#include "myheadd.h"
 
 typedef struct {
     int *data;  // 存储该行数据的数组
