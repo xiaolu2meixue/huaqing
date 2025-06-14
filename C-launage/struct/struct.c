@@ -1,6 +1,8 @@
 //typedef 关键字
 
 #include <myhead.h>
+
+typedef int (*myprintf)(shoe shoes);
 enum SEX {
     WOMAN,
     MAN,
@@ -11,7 +13,7 @@ typedef struct shoe{
     int type;
 }shoe;
 
-typedef struct people {
+typedef struct {
     int age;  //4 
     char name[13];  //13   16
     int height;
@@ -19,36 +21,53 @@ typedef struct people {
     int SEX;  //1为男
     int* buf;
     shoe* shoes;
-}pl, *PL;
+    myprintf print;
+}people, *PL;
 
 // int mystruct(struct people xxx)
 // {
 
 // }
 
+int my_printf(shoe shoes)
+{
+    printf("ssssssss\n");
+    return 1;
+}
+
 int main(int argc, const char* argv[])
 {
     //直接赋值
-    struct people zf = {23, "zongfei", 110, 172, 1};
-    printf("age = %d, name = %s", zf.age, zf.name);
+    // struct people zf = {23, "zongfei", 110, 172, 1};
+    // printf("age = %d, name = %s", zf.age, zf.name);
 
-    //最常用的
-    struct people xzl = {
-        .height = 178,
-        .name = "xuanzhonglu"
-    };
+    // //最常用的
+    // struct people xzl = {
+    //     .height = 178,
+    //     .name = "xuanzhonglu"
+    // };
 
-    struct people zs;
-    zs.age = 19;
+    // struct people zs;
+    // zs.age = 19;
 
-    printf("sssssss   %ld\n", sizeof(pl));
+    // printf("sssssss   %ld\n", sizeof(pl));
 
-    PL lisi = (struct people*)malloc(sizeof(pl));
+    // PL lisi = (struct people*)malloc(sizeof(pl));
 
-    lisi->age = 99;
-    lisi->buf = (int*)malloc(40);
-    //lisi->shoes.name = "sss";  错，不能这么写
-    strcpy(lisi->shoes->name, "ssss");
+    // lisi->age = 99;
+    // lisi->buf = (int*)malloc(40);
+    // //lisi->shoes.name = "sss";  错，不能这么写
+    // strcpy(lisi->shoes->name, "ssss");
+
+    people* zf = (people*)malloc(sizeof(people));
+    zf->print = my_printf;
+
+    shoe* nike = (shoe*)malloc(sizeof(shoe));
+
+    int ret = zf->print(*nike);
+
+    free(nike);
+    free(zf);
 
     return 0;
 }
