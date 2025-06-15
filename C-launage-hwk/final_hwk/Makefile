@@ -1,4 +1,4 @@
-EXE = mysystem
+EXE = myseq
 Filename = $(wildcard *.c)
 Objs = $(patsubst %.c,%.o,$(Filename))
 CC = gcc
