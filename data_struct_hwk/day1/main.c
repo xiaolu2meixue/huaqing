@@ -9,8 +9,9 @@ int main()
     seq* S = creat_seq(S);
     for(int i = 0; i < 6 ;i++) insert_end(data[i], S);
 
-    delete_end(S);
-    delete_start(S);
+    // delete_end(S);
+    // delete_start(S);
+    insert_pos(S);
 
     for(int i = 0; i < S->len ;i++) printf("seq[%d] = %d\n", i, S->arr[i]);
     

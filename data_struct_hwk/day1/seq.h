@@ -1,4 +1,4 @@
-#pragma
+#pragma once
 #include <myhead.h>
 
 typedef struct seq
@@ -21,3 +21,4 @@ void insert_head(int data, seq* S);
 void insert_end(int data, seq* S);
 void delete_end(seq* S);
 void delete_start(seq* S);
+void insert_pos(seq* S);

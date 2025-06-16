@@ -96,3 +96,30 @@ void delete_start(seq* S)
 
     S->len--;
 }
+void insert_pos(seq* S)
+{
+    if(empty_seq(S) == EMPTY) {
+        printf("数组为空\n");
+        return;
+    }
+    if (full_seq(S) == FULL) {
+        int* arr = (int*)realloc(S->arr, sizeof(int) * S->max_len *2);
+        S->arr = arr;
+        S->max_len *= 2;
+    }
+    int num, ele;
+    printf("输入在第几个位置插入元素：");
+    scanf("%d", &num);
+    getchar();
+    if (num > S->len + 1) printf("超出顺序表长度");
+    printf("输入插入的元素：");
+    scanf("%d", &ele);
+    getchar();
+    for(int i = S->len; i >= num; i--) S->arr[i] = S->arr[i - 1];
+    S->arr[num - 1] = ele;
+    S->len += 1;
+}
+void find_pos(seq* S)
+{
+    
+}
