@@ -11,7 +11,6 @@ Class* init(Class* class, int num)
 
 void myprint(student student)
 {
-    //printf("学生姓名\t\t 学号\t\t ")
     printf("student name:%s\n", student.name);
     printf("student id:%d\n", student.id);
     printf("student score:%d\n", student.scores.C_score);
