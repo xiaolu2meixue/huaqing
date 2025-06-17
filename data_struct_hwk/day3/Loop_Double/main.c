@@ -14,3 +14,4 @@ int main(int argc, const char* argv[])
     }
     free_loop_double(H);
     return 0;
+}
