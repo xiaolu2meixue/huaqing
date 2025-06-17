@@ -1,12 +1,12 @@
-#include "link.h"
+#include "loop.h"
 //申请单链表（头节点）
-node* creat_link(){
+node* creat_loop(){
     node* H = (node*)malloc(sizeof(node));
     if (H == NULL) {
         printf("申请内存失败\n");
         return NULL;
     }
-    H->next = NULL;
+    H->next = H;
     H->len = 0;
     return H;
 }
@@ -23,10 +23,10 @@ node* creat_node(int value)
     return new_node;
 }
 //判空
-int empty_link(node* H)
+int empty_loop(node* H)
 {
     if (H == NULL) return -2;
-    return H->next == NULL? 1: 0;
+    return H->next == H? 1: 0;
 }
 //头插
 void insert_head(node* H, int value)
@@ -48,20 +48,21 @@ void insert_tail(node* H, int value)
         return;
     }
     node* p = H;
-    for(; p->next != NULL; p = p->next);
+    for(; p->next != H; p = p->next);
     node* new = creat_node(value);
     p->next = new;
-    //new->next = NULL;(新节点的指针域已经置空，无需重复操作)
+    new->next = H;
 }
 //输出
-void show_link(node* H)
+void show_loop(node* H)
 {
     if (H == NULL) {
         printf("入参为空，请检查！");
         return;
     }
     node* p = H->next;
-    for(; p != NULL; p = p->next) {
+    for(; ; p = p->next) {
+        if (p == H) continue;
         sleep(1);
         printf("%d ", p->data);
         fflush(stdout);  //默认是行缓冲的，如果未换行可能不会立即显示。可以强制刷新
@@ -72,7 +73,7 @@ void show_link(node* H)
 void delete_head(node* H)
 {
     if(H == NULL) return;
-    if(empty_link(H)) return;
+    if(empty_loop(H)) return;
     node* p = H->next;
     H->next = p->next;
     free(p);
@@ -80,17 +81,39 @@ void delete_head(node* H)
 //尾删
 void delete_tail(node* H)
 {
-    if (empty_link(H)) {
+    if (empty_loop(H)) {
         printf("链表为空，无需删除");
         return;
     }
     if(H == NULL) return;
-    if(empty_link(H)) return;
     node* p = H;
     node* q = H->next;
-    for(; q->next != NULL; q = q->next) p = q;
-    p->next = NULL;
+    for(; q->next != H; q = q->next) p = q;
+    p->next = H;
     free(q);
+}
+//删除头节点
+node* delete(node* H)
+{
+    if(H == NULL) return NULL;
+    node* p = H->next;
+    node* q = H->next;
+    for(; q->next != H; q = q->next);
+    q->next = p;
+    free(H);
+    H = NULL;
+    return p;
+}
+//删除头节点后单项循环列表的输出
+void show_no_head(node* H)
+{
+    node* p = H;
+    for(; ; p = p->next) {
+        sleep(1);
+        printf("%d ", p->data);
+        fflush(stdout);  //默认是行缓冲的，如果未换行可能不会立即显示。可以强制刷新
+    }
+    printf("\n");
 }
 //按位置插入
 void insert_pos(node* H)
@@ -98,7 +121,7 @@ void insert_pos(node* H)
     if(H == NULL) return;
     int num, ele, j;
     node* z = H;
-    for(j = 1; z->next != NULL; j++) z = z->next;
+    for(j = 1; z->next != H; j++) z = z->next;
     printf("输入需要插入的位置：");
     scanf("%d", &num);
     if (num < 1 || num > j) {
@@ -121,7 +144,7 @@ void delete_pos(node* H)
     if(H == NULL) return;
     int num, j;
     node* z = H;
-    for(j = 1; z->next != NULL; j++) z = z->next;
+    for(j = 1; z->next != H; j++) z = z->next;
     printf("输入需要删除的位置：");
     scanf("%d", &num);
     if (num < 1 || num >= j) {
@@ -143,7 +166,7 @@ void find_pos(node* H)
     int num, j;
     //int ele;
     node* z = H;
-    for(j = 1; z->next != NULL; j++) z = z->next;
+    for(j = 1; z->next != H; j++) z = z->next;
     printf("输入需要查找的位置：");
     scanf("%d", &num);
     if (num < 1 || num >= j) {
@@ -158,71 +181,4 @@ void find_pos(node* H)
     }
     //p->data = ele;
     printf("当前位置元素为：%d\n", p->data);
-}
-//按值修改
-void change_ele(node* H)
-{
-    int num, ele;
-    if(H == NULL) return;
-    printf("输入需要查找的元素：");
-    scanf("%d", &num);
-    printf("输入需要改成的元素：");
-    scanf("%d", &ele);
-    node* p = H;
-    for (; p != NULL; p = p->next) if (p->data == num) p->data = ele;
-}
-//单项链表的逆置
-void invert_link(node* H)
-{
-    if (H == NULL || H->next == NULL) {
-        return;
-    }
-    int* arr = (int*)malloc(sizeof(int) * H->len);
-    if (arr == NULL) {
-        printf("内存分配失败\n");
-        return;
-    }
-    int* start = arr;
-    int* end = arr + H->len - 1;
-    node* p = H->next;
-    //将所有数据域数据赋值给数组
-    for (; start <= end; p = p->next) *start++ = p->data;
-    start = arr;
-    p = H->next;
-    //反转数组
-    for (; start <= end; ) {
-        int temp = *start;
-        *start++ = *end;
-        *end-- = temp;
-    }
-    end = arr + H->len - 1;
-    start = arr;
-    //将数组元素重新赋值给链表
-    for (; start <= end; p = p->next) p->data = *start++;
-    free(arr);
-    arr = NULL;
-}
-void invert_link2(node* H)
-{
-    if (H == NULL || H->next == NULL) {
-        return;
-    }
-    node* p = H->next;  //断开表头
-    node* q = NULL;
-    H->next = NULL;     //链表头指针域指空
-    for (; p != NULL; ) {
-        q = p; //保存P
-        p = p->next;  //向后遍历
-        q->next = H->next; //断开q
-        H->next = q;  //头插
-    }
-}
-void loop_print(node* H)
-{
-    if (H == NULL || H->next == NULL) {
-        return;
-    }
-    node* p = H;
-    for (; p->next != NULL; ) p = p->next;
-    p->next = H->next;
 }

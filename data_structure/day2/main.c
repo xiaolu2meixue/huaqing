@@ -7,7 +7,9 @@ int main(int argc, const char* argv[])
     insert_head(H, 2);
     insert_head(H, 3);
     insert_head(H, 4);
-    invert_link2(H);
+    loop_print(H);
     show_link(H);
+    // invert_link2(H);
+    // show_link(H);
     return 0;
 }
