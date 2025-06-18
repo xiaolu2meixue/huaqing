@@ -11,7 +11,8 @@ int main(int argc, const char* argv[])
     //find_pos(H);
         node* q =delete(H);
         show_no_head(q);
+        free_loop_double(q);
     }
-    free_loop_double(H);
+    else free(H);
     return 0;
 }

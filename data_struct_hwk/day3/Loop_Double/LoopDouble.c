@@ -207,8 +207,11 @@ void free_loop_double(node* H)
 {
     if (H == NULL) return;
     node* p = H;
-    for ( ; p != H; ) {
-        node* next_node = p->next;
+    node* next_node = p->next;
+    free(p);
+    p = next_node;
+    for ( ; p->next != H->next; ) {
+        next_node = p->next;
         free(p);
         p = next_node;
     }
