@@ -25,3 +25,5 @@ void find_pos(node* H);
 void change_ele(node* H);
 void invert_link(node* H);
 void invert_link2(node* H);
+
+
