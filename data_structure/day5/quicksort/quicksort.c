@@ -3,21 +3,15 @@
 int one_sort(int *p,int low,int high)
 {
 	int base = *(p+low);
-	while(high>low)
+	for( ; high>low; )
 	{
 		//high一侧的数据比基准更大
-		while(*(p+high)>=base&&high>low)
-		{
-			high--;
-		}
-		*(p+low) = *(p+high);
-		while(*(p+low)<=base&&high>low)
-		{
-			low++;
-		}
+		for ( ; *(p + high) >= base && high > low; high--);
+		*(p + low) = *(p + high);
+		for ( ; *(p+low) <= base&&high>low; low++);
 		*(p+high) = *(p+low);
 	}
-	*(p+low)=base;   //将基准放在中间位置
+	*(p+low) = base;   //将基准放在中间位置
 	return low;
 }
 void sort(int *p,int low,int high)
@@ -33,8 +27,6 @@ int main(int argc, const char *argv[])
 {
 	int arr[] = {50, 36, 66, 76, 36, 12, 25, 95};
 	sort(arr, 0, sizeof(arr)/sizeof(int) - 1);
-	for(int i = 0; i < sizeof(arr)/sizeof(int); i++) {
-		printf("%d\n", arr[i]);
-	}
+	for(int i = 0; i < sizeof(arr)/sizeof(int); i++) printf("%d\n", arr[i]);
 	return 0;
 }
