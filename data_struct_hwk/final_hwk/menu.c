@@ -216,7 +216,7 @@ int main_menu(node* H)
     int choice;
     while (1) {
         p_menu();
-        printf("请选择操作 (1-7): ");
+        printf("请选择操作 (1-6): ");
         
         if (scanf("%d", &choice) != 1) {
             while (getchar() != '\n'); // 清空无效输入
