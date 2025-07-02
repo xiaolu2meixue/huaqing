@@ -1,9 +1,9 @@
 #include <myhead.h>
 
-
 #define BUFFER_SIZE 4096  // 4KB缓冲区
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     if (argc != 3) {
         fprintf(stderr, "Usage: %s <source.bmp> <destination.bmp>\n", argv[0]);
         return -1;
@@ -47,7 +47,7 @@ int main(int argc, char *argv[]) {
     }
 
     // 提取关键信息
-    // 根据位图信息头提供的信息，info_header是unsigned char类型，所以索引号0~3记录结构所需要的字数、4~7记录宽度、8~11记录长度，然后用按位或整合数据为int类型
+    // 根据位图信息头提供的信息，info_header是unsigned char类型，所以索引号0~3记录结构所需要的字节、4~7记录宽度、8~11记录长度，然后用按位或整合数据为int类型
     int width = (info_header[7] << 24) | (info_header[6] << 16) | (info_header[5] << 8) | info_header[4];
     
     int height = (info_header[11] << 24) | (info_header[10] << 16) | (info_header[9] << 8) | info_header[8];
@@ -59,14 +59,14 @@ int main(int argc, char *argv[]) {
     printf("  偏移量: %u bytes\n", data_offset);
     printf("  文件宽高: %d x %d pixels\n", width, height);
 
-    // 5. 创建目标文件
+    // 创建目标文件
     int dst_fd = open(dst_path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
     if (dst_fd == -1) {
         close(src_fd);
         ERRLOG("Error creating destination file");
     }
 
-    // 6. 写入文件头
+    // 写入文件头
     if (write(dst_fd, signature, 2) != 2) {
         close(src_fd);
         close(dst_fd);
@@ -79,15 +79,15 @@ int main(int argc, char *argv[]) {
         ERRLOG("Error writing file header");
     }
     
-    // 7. 写入信息头
+    // 写入信息头
     if (write(dst_fd, info_header, 40) != 40) {
         close(src_fd);
         close(dst_fd);
         ERRLOG("Error writing info header");
     }
 
-    // 8. 计算颜色表大小并复制
-    unsigned int color_size = data_offset - 54; // 54 = 2(sig) + 12(header) + 40(info)
+    // 计算颜色表大小并复制
+    unsigned int color_size = data_offset - 54; // 文件偏移量 - 54 = 14(文件头) + 40(位图信息头)
     if (color_size > 0) {
         unsigned char buffer[BUFFER_SIZE];
         unsigned int remaining = color_size;
@@ -113,7 +113,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    // 9. 复制像素数据
+    // 复制像素数据
     // 获取文件总大小
     off_t file_end = lseek(src_fd, 0, SEEK_END);
     if (file_end == (off_t)-1) {
@@ -144,11 +144,11 @@ int main(int argc, char *argv[]) {
             if (bytes_read == 0) {
                 close(src_fd);
                 close(dst_fd);
-                fprintf(stderr, "Unexpected end of file\n");
+                fprintf(stderr, "读到文件末尾\n");
             } else {
                 close(src_fd);
                 close(dst_fd);
-                ERRLOG("Error reading pixel data");
+                ERRLOG("读像素error");
             }
         }
         
@@ -156,13 +156,13 @@ int main(int argc, char *argv[]) {
         if (bytes_written != bytes_read) {
             close(src_fd);
             close(dst_fd);
-            ERRLOG("Error writing pixel data");
+            ERRLOG("写入错误");
         }
         
         remain -= bytes_read;
     }
 
-    // 10. 关闭文件
+    // 关闭文件
     if (close(src_fd)) ERRLOG("Error closing source file");
     
     if (close(dst_fd)) ERRLOG("Error closing destination file");
