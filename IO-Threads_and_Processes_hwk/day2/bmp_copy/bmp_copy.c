@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
     // 提取关键信息
     // 根据位图信息头提供的信息，info_header是unsigned char类型，所以索引号0~3记录结构所需要的字节、4~7记录宽度、8~11记录长度，然后用按位或整合数据为int类型
     int width = (info_header[7] << 24) | (info_header[6] << 16) | (info_header[5] << 8) | info_header[4];
-    
+
     int height = (info_header[11] << 24) | (info_header[10] << 16) | (info_header[9] << 8) | info_header[8];
     
     // 打印文件信息
