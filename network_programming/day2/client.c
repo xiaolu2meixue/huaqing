@@ -1,8 +1,5 @@
 #include <myhead.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <sys/un.h>
+
 enum Type {
 	TYPE_REGIST,
 	TYPE_LOGIN
