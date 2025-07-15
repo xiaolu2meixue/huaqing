@@ -96,9 +96,7 @@ int main(int argc, const char *argv[])
                 else {
                     // 转发消息给所有其他客户端
                     for (int j = 0; j < client_arr_len; j++) {
-                        if (client_arr[j] != client) {
-                            write(client_arr[j], buf, strlen(buf));
-                        }
+                        if (client_arr[j] != client) write(client_arr[j], buf, strlen(buf));
                     }
                 }
             }

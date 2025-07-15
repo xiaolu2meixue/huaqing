@@ -1,12 +1,14 @@
 #include <myhead.h>
 #include <poll.h>
 
-void insert_fd(struct pollfd* list, int* list_len, struct pollfd new_fd) {
+void insert_fd(struct pollfd* list, int* list_len, struct pollfd new_fd)
+{
     list[*list_len] = new_fd;
     (*list_len)++;
 }
 
-void remove_fd(struct pollfd* list, int* list_len, int tar_fd) {
+void remove_fd(struct pollfd* list, int* list_len, int tar_fd)
+{
     for (int i = 0; i < *list_len; i++) {
         if (list[i].fd == tar_fd) {
             for (int j = i; j < *list_len - 1; j++) {
@@ -18,7 +20,8 @@ void remove_fd(struct pollfd* list, int* list_len, int tar_fd) {
     }
 }
 
-int main(int argc, const char *argv[]) {
+int main(int argc, const char *argv[])
+{
     if (argc < 3) {
         printf("用法: %s <ip地址> <端口号>\n", argv[0]);
         return -1;
