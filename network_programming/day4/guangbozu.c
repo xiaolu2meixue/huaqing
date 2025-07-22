@@ -32,7 +32,7 @@ int main(int argc, const char *argv[])
 
     // 3. 设置套接字选项
     int optval = 1;
-    if(setsockopt(sender, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval)) {
+    if(setsockopt(sender, SOL_SOCKET, SO_REUSEADDR, &optval, sizeof(optval))) {
         perror("setsockopt SO_REUSEADDR");
         close(sender);
         exit(EXIT_FAILURE);
